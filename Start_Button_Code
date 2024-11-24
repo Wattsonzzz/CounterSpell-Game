@@ -1,0 +1,5 @@
+draw_set_font(Words)
+draw_text(1900, 162, "Press enter to start!");
+
+//When player presses "Enter" key:
+room_goto(Game)
