@@ -1,0 +1,78 @@
+//I DID NOT MAKE THIS, I HAVEN'T EVEN USED THIS SOFTWARE FOR MORE THAN ONE DAY T-T
+//https://www.youtube.com/watch?v=OY0V7AwPfrU - THIS VIDEO
+
+draw_self()
+
+if(is_debug) {
+		var add_angle = 10 // 10 degrees
+		var angle_dir = 2 //-1 , 1
+		var dir = image_angle
+
+
+	for(var rays = 0; rays <= ray_count; rays++)
+	{
+		for (var line_length = 0; line_length < ray_length + 1; line_length ++)
+		{
+			var xx = x + lengthdir_x(line_length, dir)
+			var yy = y + lengthdir_y(line_length, dir)
+		
+			if (position_empty(xx,yy) == false)
+			{
+				if(instance_place(xx,yy,oBlock) != noone)
+				{
+					draw_set_color(c_red)
+					draw_circle(xx,yy,5,false)
+					break
+				}
+			}
+			
+			if (position_empty(xx,yy) == false)
+			{
+				if(instance_place(xx,yy,oPlayer) != noone)
+				{
+					draw_set_color(c_red)
+					draw_circle(xx,yy,5,false)
+					break
+				}
+			}
+			
+		draw_set_color(c_lime)
+		xx = 100
+		yy = 200
+		draw_point(xx,yy)
+		}
+		dir += (add_angle * rays) * angle_dir
+		angle_dir *= -1
+	}
+}
+
+if(see_player)
+{
+	game_set_speed(60, gamespeed_fps); 
+	// Create Event
+	// Set the initial time for the timer (in seconds)
+	var timer_time = 2; // Start the timer at 2 seconds
+	var is_timer_running = true; // Timer is active
+	var timer_display = string(timer_time); // Store timer as string for display
+
+	// Step Event
+	if (is_timer_running) {
+		// Decrease timer by 1 every second (assuming 60 FPS)
+		if (alarm[0] == -1) {
+		   alarm[0] = room_speed; // Set alarm to trigger every second (1 second = room_speed)
+		}
+	}
+
+	// Alarm 0 Event
+	// This event triggers every second
+	if (is_timer_running) {
+	  timer_time -= 1; // Decrease the timer by 1 second
+	  timer_display = string(timer_time); // Update display string
+
+		if (timer_time <= 0) {
+			is_timer_running = false; // Stop the timer when it reaches 0
+		    draw_sprite(See_Player, 0,x, y - 34)	 // Show a message when the timer reaches 0
+		}
+	}
+	
+}
