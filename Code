@@ -1,0 +1,106 @@
+//movement keys:
+left = keyboard_check(ord("A"))
+right = keyboard_check(ord("D"))
+jump = keyboard_check_pressed(vk_space)
+
+xsd = (right - left) * 5
+ysd += grav
+
+if (left == false) && (right == false)
+{
+	sprite_index = Idle
+}
+else
+{	
+	sprite_index = sPlayer
+}
+
+if (jump && place_meeting(x,y+1,oBlock))
+{
+	ysd = jumpspd
+}
+
+if (jump && place_meeting(x,y+1,oFloor))
+{
+	ysd = jumpspd
+}
+
+
+if left
+{
+	image_xscale = -0.25
+}
+
+if right
+{
+	image_xscale = 0.25
+}
+
+//Collision for X-Axis
+if place_meeting(x + xsd,y,oBlock)
+{
+	var pixel_check = sign(xsd)
+	while !place_meeting(x + pixel_check,y,oBlock)
+	{
+		x += pixel_check
+	}
+	
+	//set speed = to 0
+		xsd = 0
+}
+
+//Collision for Y-Axis
+if place_meeting(x + xsd,y + ysd,oBlock)
+{
+	var pixel_check = sign(ysd)
+	while !place_meeting(x + xsd,y + pixel_check,oBlock)
+	{
+		y += pixel_check
+	}
+	
+	//set speed = to 0
+	ysd = 0
+	
+}
+
+if place_meeting(x + xsd,y + ysd,oFloor)
+{
+	var pixel_check = sign(ysd)
+	while !place_meeting(x + xsd,y + pixel_check,oFloor)
+	{
+		y += pixel_check
+	}
+	
+	//set speed = to 0
+	ysd = 0
+}
+
+if place_meeting(x + xsd,y,Box)
+{
+	var pixel_check = sign(xsd)
+	while !place_meeting(x + pixel_check,y,Box)
+	{
+		x += pixel_check
+	}
+	
+	//set speed = to 0
+		xsd = 0
+}
+
+if place_meeting(x + xsd,y + ysd, Box)
+{
+	var pixel_check = sign(ysd)
+	while !place_meeting(x + xsd,y + pixel_check,Box)
+	{
+		y += pixel_check
+	}
+	
+	//set speed = to 0
+	ysd = 0
+	
+}
+
+//move player:
+
+x += xsd
+y += ysd
